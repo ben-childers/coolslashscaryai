@@ -12,6 +12,7 @@
     <meta property="og:description" content="A decentralized event platform where mission-driven communities examine AI's impact and shape it together." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="styles.css" />
@@ -30,6 +31,11 @@
             <h1>Community-run events for shaping AI’s impact on social good.</h1>
           </div>
         </div>
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
         <nav class="site-nav" aria-label="Main">
           <a href="#events">Events</a>
           <a href="#impact">Impact Reports</a>
@@ -86,7 +92,7 @@
           </div>
           <div class="card-grid">
             <article class="card">
-              <p class="card-meta">Baltimore, Maryland · Spring 2025</p>
+              <p class="card-meta">Baltimore, Maryland · 2025</p>
               <h3>Cool AI Sh*t — Baltimore Summit 2025</h3>
               <p>
                 The inaugural summit convened nonprofit leaders, technologists, creatives, and advocates to explore context-aware AI, ethical responsibility, and
@@ -142,8 +148,8 @@
           <div>
             <h2>About</h2>
             <p>
-              We believe the only way to ensure AI is equitably realized is to ensure that as many voices contribute to its growth — not just five billionaires
-              in Silicon Valley.
+              We believe the only way to ensure AI is equitably realized is to ensure that as many voices contribute to its growth — <strong>not just five billionaires
+              in Silicon Valley.</strong>
             </p>
             <p>
               Cool Slash Scary AI brings together nonprofit leaders, social entrepreneurs, and civic technologists to shape AI with the communities most
@@ -243,6 +249,21 @@
       </div>
     </footer>
 
+    <script>
+      const navToggle = document.querySelector('.nav-toggle');
+      const siteNav = document.querySelector('.site-nav');
+      navToggle.addEventListener('click', () => {
+        const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', !isOpen);
+        siteNav.classList.toggle('is-open');
+      });
+      siteNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navToggle.setAttribute('aria-expanded', 'false');
+          siteNav.classList.remove('is-open');
+        });
+      });
+    </script>
     <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
     <script>
       window.EBWidgets.createWidget({

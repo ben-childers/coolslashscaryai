@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2026 Cool/Scary AI BINGO | Cool Slash Scary AI</title>
+    <meta
+      name="description"
+      content="Our 2026 Cool/Scary AI BINGO card featuring predictions from nonprofit leaders, technologists, and community advocates."
+    />
+    <meta property="og:title" content="2026 Cool/Scary AI BINGO" />
+    <meta property="og:description" content="Predictions for AI in 2026 from nonprofit leaders, technologists, and community advocates." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .bingo-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bingo-header {
+        padding: 1.5rem 0;
+        border-bottom: 3px solid var(--navy);
+        background: var(--white);
+      }
+
+      .bingo-header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .bingo-header a {
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.85rem;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 0.25rem;
+      }
+
+      .bingo-header a:hover,
+      .bingo-header a:focus {
+        border-color: var(--teal);
+      }
+
+      .bingo-hero {
+        background: var(--navy);
+        color: var(--white);
+        padding: 3rem 0;
+        text-align: center;
+      }
+
+      .bingo-hero h1 {
+        color: var(--white);
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 1rem;
+      }
+
+      .bingo-hero p {
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0.85;
+      }
+
+      .bingo-content {
+        flex: 1;
+        padding: 3rem 0;
+        background: var(--fog);
+      }
+
+      .bingo-image-wrapper {
+        background: var(--white);
+        border: 3px solid var(--navy);
+        padding: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .bingo-image {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .bingo-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .bingo-actions .button {
+        background: var(--navy);
+        color: var(--white);
+        border: 3px solid var(--navy);
+      }
+
+      .bingo-actions .button:hover,
+      .bingo-actions .button:focus {
+        background: var(--green);
+        border-color: var(--green);
+      }
+
+      .bingo-actions .button-secondary {
+        background: transparent;
+        color: var(--navy);
+      }
+
+      .bingo-actions .button-secondary:hover,
+      .bingo-actions .button-secondary:focus {
+        background: var(--navy);
+        color: var(--white);
+      }
+    </style>
+  </head>
+  <body class="bingo-page">
+    <header class="bingo-header">
+      <div class="container">
+        <a href="index.html">
+          <img src="assets/logo.png" alt="Cool Slash Scary AI" width="48" height="48" />
+        </a>
+        <a href="index.html">&larr; Back to home</a>
+      </div>
+    </header>
+
+    <section class="bingo-hero">
+      <div class="container">
+        <h1>2026 Cool/Scary AI BINGO</h1>
+        <p>
+          Predictions for AI in 2026 from nonprofit leaders, technologists, and community advocates.
+          How many will come true?
+        </p>
+      </div>
+    </section>
+
+    <main class="bingo-content">
+      <div class="container">
+        <div class="bingo-image-wrapper">
+          <img
+            src="assets/bingo-2026.png"
+            alt="2026 Cool/Scary AI BINGO card featuring 25 predictions about AI from various contributors"
+            class="bingo-image"
+          />
+        </div>
+        <div class="bingo-actions">
+          <a href="assets/bingo-2026.png" download="CoolSlashScary-AI-BINGO-2026.png" class="button">Download BINGO card</a>
+          <a href="index.html#contact" class="button button-secondary">Get in touch</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p>Cool Slash Scary AI · Community-led convenings on the future of AI in social impact.</p>
+        <p class="quiet">Built for peers, collaborators, and the communities we serve.</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -583,6 +583,33 @@ input:focus-visible {
   opacity: 0.9;
 }
 
+.signup-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.signup-form input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--white);
+  background: var(--white);
+  font-size: 0.95rem;
+}
+
+.signup-form .button {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+  padding: 0.75rem 1.25rem;
+}
+
+.signup-form .button:hover,
+.signup-form .button:focus {
+  background: var(--white);
+  color: var(--navy);
+}
+
 /* Footer - bold block */
 .site-footer {
   background: var(--navy);

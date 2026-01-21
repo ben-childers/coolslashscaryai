@@ -87,9 +87,9 @@
       }
 
       .gallery-item {
-        background: var(--white);
         border: 3px solid var(--navy);
         overflow: hidden;
+        cursor: pointer;
       }
 
       .gallery-item img {
@@ -103,9 +103,48 @@
         transform: scale(1.02);
       }
 
-      .gallery-item-single {
-        max-width: 800px;
-        margin: 0 auto 2rem;
+      .lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        box-sizing: border-box;
+      }
+
+      .lightbox.active {
+        display: flex;
+      }
+
+      .lightbox img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border: 3px solid var(--white);
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        color: var(--white);
+        font-size: 2rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        font-weight: 700;
+        line-height: 1;
+        padding: 0.5rem;
+      }
+
+      .lightbox-close:hover {
+        color: var(--teal);
       }
 
       .air-actions {
@@ -168,6 +207,20 @@
         line-height: 1.6;
       }
 
+      .artist-social {
+        margin-top: 1rem;
+      }
+
+      .artist-social a {
+        color: var(--teal);
+        font-weight: 600;
+        border-bottom: 2px solid transparent;
+      }
+
+      .artist-social a:hover {
+        border-color: var(--teal);
+      }
+
       @media (max-width: 600px) {
         .gallery-grid {
           grid-template-columns: 1fr;
@@ -214,6 +267,9 @@
             <p>
               Born and raised in Austin, Texas, where she still lives today with her husband and daughter. Although the favored medium has changed many times, creation has remained a constant &mdash; it's always been about making something beautiful and thrilling.
             </p>
+            <p class="artist-social">
+              <a href="https://instagram.com/kamclark.art" target="_blank" rel="noopener">@kamclark.art</a>
+            </p>
           </div>
         </div>
 
@@ -244,5 +300,36 @@
         <p class="quiet">Built for peers, collaborators, and the communities we serve.</p>
       </div>
     </footer>
+
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <img src="" alt="" id="lightbox-img" />
+    </div>
+
+    <script>
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const galleryItems = document.querySelectorAll('.gallery-item img');
+
+      galleryItems.forEach(img => {
+        img.addEventListener('click', () => {
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightbox.classList.add('active');
+        });
+      });
+
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-close')) {
+          lightbox.classList.remove('active');
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          lightbox.classList.remove('active');
+        }
+      });
+    </script>
   </body>
 </html>

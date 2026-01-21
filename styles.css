@@ -30,6 +30,11 @@
   padding: 0;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   font-family: "DM Sans", "Futura", system-ui, -apple-system, sans-serif;
   color: var(--ink);
@@ -703,10 +708,12 @@ input:focus-visible {
 @media (max-width: 720px) {
   .header-content {
     position: relative;
+    padding-right: 50px;
   }
 
   .nav-toggle {
     display: block;
+    z-index: 20;
   }
 
   .site-nav {

@@ -81,16 +81,16 @@
       }
 
       .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
-        align-items: start;
+        column-count: 3;
+        column-gap: 1.5rem;
       }
 
       .gallery-item {
         border: 3px solid var(--navy);
         overflow: hidden;
         cursor: pointer;
+        margin-bottom: 1.5rem;
+        break-inside: avoid;
       }
 
       .gallery-item img {
@@ -222,9 +222,15 @@
         border-color: var(--teal);
       }
 
+      @media (max-width: 900px) {
+        .gallery-grid {
+          column-count: 2;
+        }
+      }
+
       @media (max-width: 600px) {
         .gallery-grid {
-          grid-template-columns: 1fr;
+          column-count: 1;
         }
 
         .artist-bio {

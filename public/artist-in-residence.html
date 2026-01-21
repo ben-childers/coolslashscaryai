@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Artist in Residence | Cool Slash Scary AI</title>
+    <meta
+      name="description"
+      content="Featuring digital artwork by Kam Clark, our Artist in Residence, exploring the intersection of AI and social impact."
+    />
+    <meta property="og:title" content="Kam Clark - Artist in Residence | Cool Slash Scary AI" />
+    <meta property="og:description" content="Featuring digital artwork by Kam Clark, exploring the intersection of AI and social impact." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .air-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .air-header {
+        padding: 1.5rem 0;
+        border-bottom: 3px solid var(--navy);
+        background: var(--white);
+      }
+
+      .air-header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .air-header a {
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.85rem;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 0.25rem;
+      }
+
+      .air-header a:hover,
+      .air-header a:focus {
+        border-color: var(--teal);
+      }
+
+      .air-hero {
+        background: var(--navy);
+        color: var(--white);
+        padding: 3rem 0;
+        text-align: center;
+      }
+
+      .air-hero h1 {
+        color: var(--white);
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 1rem;
+      }
+
+      .air-hero p {
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0.85;
+      }
+
+      .air-content {
+        flex: 1;
+        padding: 3rem 0;
+        background: var(--fog);
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .gallery-item {
+        background: var(--white);
+        border: 3px solid var(--navy);
+        overflow: hidden;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.02);
+      }
+
+      .gallery-item-single {
+        max-width: 800px;
+        margin: 0 auto 2rem;
+      }
+
+      .air-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+
+      .air-actions .button {
+        background: var(--navy);
+        color: var(--white);
+        border: 3px solid var(--navy);
+      }
+
+      .air-actions .button:hover,
+      .air-actions .button:focus {
+        background: var(--green);
+        border-color: var(--green);
+      }
+
+      .air-actions .button-secondary {
+        background: transparent;
+        color: var(--navy);
+      }
+
+      .air-actions .button-secondary:hover,
+      .air-actions .button-secondary:focus {
+        background: var(--navy);
+        color: var(--white);
+      }
+
+      .artist-bio {
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+        margin-bottom: 3rem;
+        background: var(--white);
+        border: 3px solid var(--navy);
+        padding: 2rem;
+      }
+
+      .artist-headshot {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border: 3px solid var(--navy);
+        flex-shrink: 0;
+      }
+
+      .artist-info h2 {
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+      }
+
+      .artist-info p {
+        color: var(--navy);
+        opacity: 0.85;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 600px) {
+        .gallery-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .artist-bio {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .artist-headshot {
+          width: 150px;
+          height: 150px;
+        }
+      }
+    </style>
+  </head>
+  <body class="air-page">
+    <header class="air-header">
+      <div class="container">
+        <a href="index.html">
+          <img src="assets/logo.png" alt="Cool Slash Scary AI" width="48" height="48" />
+        </a>
+        <a href="index.html">&larr; Back to home</a>
+      </div>
+    </header>
+
+    <section class="air-hero">
+      <div class="container">
+        <h1>Artist in Residence</h1>
+        <p>
+          Digital artwork created during our artist residency program, exploring the intersection of AI and social impact.
+        </p>
+      </div>
+    </section>
+
+    <main class="air-content">
+      <div class="container">
+        <div class="artist-bio">
+          <img src="assets/kam-clark-headshot.png" alt="Kam Clark" class="artist-headshot" />
+          <div class="artist-info">
+            <h2>Kam Clark</h2>
+            <p>
+              Born and raised in Austin, Texas, where she still lives today with her husband and daughter. Although the favored medium has changed many times, creation has remained a constant &mdash; it's always been about making something beautiful and thrilling.
+            </p>
+          </div>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="assets/kam-clark-banner.png" alt="Cool/Scary AI Detroit banner artwork by Kam Clark" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/kam-clark-square.png" alt="Cool/Scary AI Detroit square artwork by Kam Clark" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/kam-clark-deck1.png" alt="Cool/Scary AI Detroit deck artwork by Kam Clark" />
+          </div>
+          <div class="gallery-item">
+            <img src="assets/kam-clark-deck2.png" alt="Cool/Scary AI Detroit deck artwork by Kam Clark" />
+          </div>
+        </div>
+
+        <div class="air-actions">
+          <a href="index.html#contact" class="button">Get in touch</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <p>Cool Slash Scary AI · Community-led convenings on the future of AI in social impact.</p>
+        <p class="quiet">Built for peers, collaborators, and the communities we serve.</p>
+      </div>
+    </footer>
+  </body>
+</html>

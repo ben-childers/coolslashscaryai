@@ -344,7 +344,6 @@ h3 {
   background: var(--white);
   border: 2px solid var(--navy-15);
   padding: 1.5rem;
-  min-height: 425px;
 }
 
 /* Card grid */

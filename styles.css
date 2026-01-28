@@ -344,6 +344,7 @@ h3 {
   background: var(--white);
   border: 2px solid var(--navy-15);
   padding: 1.5rem;
+  min-height: 425px;
 }
 
 /* Card grid */
@@ -726,14 +727,42 @@ input:focus-visible {
 }
 
 .footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.footer-left {
   display: grid;
   gap: 0.75rem;
 }
 
-.footer-content p:first-child {
+.footer-left p:first-child {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+.footer-partner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--white);
+  font-size: 0.85rem;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+.footer-partner:hover,
+.footer-partner:focus {
+  opacity: 1;
+}
+
+.footer-partner img {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
 }
 
 .site-footer .quiet {
@@ -854,5 +883,14 @@ input:focus-visible {
 
   .event-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-partner {
+    margin-top: 1rem;
   }
 }

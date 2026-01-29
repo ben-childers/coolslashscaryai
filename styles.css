@@ -483,6 +483,16 @@ h3 {
   color: var(--white);
 }
 
+.event-source--library-green {
+  background: var(--green);
+  color: var(--white);
+}
+
+.event-source--library-gold {
+  background: var(--gold);
+  color: var(--navy);
+}
+
 .event-card h3 {
   font-size: 1.15rem;
   text-transform: none;

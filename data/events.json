@@ -1,0 +1,24 @@
+[
+  {
+    "id": "dcpl-woodridge-2026-03-25",
+    "source": "DC Public Library",
+    "accent": "library-green",
+    "title": "Hey DC: we want to hear your thoughts on AI!",
+    "start": "2026-03-25T17:00:00-04:00",
+    "end": "2026-03-25T19:00:00-04:00",
+    "location": "Woodridge Neighborhood Library, Washington, DC",
+    "registerUrl": "https://dclibrary.libnet.info/event/15715629",
+    "cta": "Register"
+  },
+  {
+    "id": "dcpl-anacostia-2026-04-29",
+    "source": "DC Public Library",
+    "accent": "library-gold",
+    "title": "Hey DC: we want to hear your thoughts on AI!",
+    "start": "2026-04-29T17:00:00-04:00",
+    "end": "2026-04-29T19:00:00-04:00",
+    "location": "Anacostia Neighborhood Library, Washington, DC",
+    "registerUrl": "https://dclibrary.libnet.info/event/15715770",
+    "cta": "Register"
+  }
+]

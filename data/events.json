@@ -1,5 +1,16 @@
 [
   {
+    "id": "toronto-csi-2026-10-19",
+    "source": "Cool/Scary AI",
+    "accent": "community",
+    "title": "Cool/Scary AI Toronto 2026",
+    "start": "2026-10-19T13:00:00-04:00",
+    "end": "2026-10-19T16:30:00-04:00",
+    "location": "Centre for Social Innovation, 192 Spadina Ave., Toronto, ON",
+    "registerUrl": "https://events.humanitix.com/cool-scary-ai-toronto-2026",
+    "cta": "Register"
+  },
+  {
     "id": "dcpl-woodridge-2026-03-25",
     "source": "DC Public Library",
     "accent": "library-green",
@@ -8,7 +19,8 @@
     "end": "2026-03-25T19:00:00-04:00",
     "location": "Woodridge Neighborhood Library, Washington, DC",
     "registerUrl": "https://dclibrary.libnet.info/event/15715629",
-    "cta": "Register"
+    "cta": "Register",
+    "reportId": null
   },
   {
     "id": "dcpl-anacostia-2026-04-29",
@@ -19,6 +31,7 @@
     "end": "2026-04-29T19:00:00-04:00",
     "location": "Anacostia Neighborhood Library, Washington, DC",
     "registerUrl": "https://dclibrary.libnet.info/event/15715770",
-    "cta": "Register"
+    "cta": "Register",
+    "reportId": null
   }
 ]

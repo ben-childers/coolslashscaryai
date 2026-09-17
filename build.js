@@ -42,8 +42,14 @@ function formatWhen(startISO, endISO) {
   return `${date} · ${time(startISO)} – ${time(endISO)}`;
 }
 
+function isPast(e, now = new Date()) {
+  return new Date(e.end || e.start) < now;
+}
+
 function renderEvents(events) {
-  const upcoming = [...events].sort((a, b) => new Date(a.start) - new Date(b.start));
+  const upcoming = events
+    .filter((e) => !isPast(e))
+    .sort((a, b) => new Date(a.start) - new Date(b.start));
   if (!upcoming.length) {
     return '            <p class="quiet">No events on the calendar right now — ' +
            '<a class="text-link" href="#host">host one</a>.</p>';
@@ -106,15 +112,17 @@ function main() {
   let html = replaceRegion(original, 'events', renderEvents(events));
   html = replaceRegion(html, 'reports', renderReports(reports));
 
-  const stale = events.filter((e) => new Date(e.end || e.start) < new Date());
-  if (stale.length) {
-    console.warn(
-      `\n  !!  ${stale.length} event(s) already happened and are still listed publicly:`
-    );
-    stale.forEach((e) =>
+  // Past events stay in events.json as a record but stop rendering. Any past
+  // event without a reportId is one we owe an impact report.
+  const owed = events.filter((e) => isPast(e) && !e.reportId);
+  if (owed.length) {
+    console.warn(`\n  --  ${owed.length} past event(s) awaiting an impact report:`);
+    owed.forEach((e) =>
       console.warn(`      - ${e.title} (${e.location}) on ${formatWhen(e.start, e.end)}`)
     );
-    console.warn('      Remove them from data/events.json or move them to an archive.\n');
+    console.warn(
+      '      Add the report to data/reports.json, then set "reportId" on the event.\n'
+    );
   }
 
   if (check) {
@@ -127,8 +135,10 @@ function main() {
   }
 
   fs.writeFileSync(INDEX, html);
+  const shown = events.filter((e) => !isPast(e)).length;
   console.log(
-    `Built index.html — ${events.length} event(s), ${reports.length} impact report(s).`
+    `Built index.html — ${shown} upcoming event(s) of ${events.length} on file, ` +
+      `${reports.length} impact report(s).`
   );
 }
 

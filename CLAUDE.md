@@ -41,9 +41,18 @@ Why generate rather than render client-side: the committed HTML stays real,
 crawlable markup, and the site keeps working with JS disabled. The "build" is
 a local convenience, not a deploy dependency.
 
-`node build.js --check` exits non-zero if `index.html` is stale. `build.js`
-also warns when a listed event's date has already passed — heed that warning;
-stale events on the live site are the failure mode this repo is most prone to.
+`node build.js --check` exits non-zero if `index.html` is stale.
+
+### Past events and the impact-report pipeline
+
+Events are **filtered by date automatically** — once an event's `end` time has
+passed it stops rendering, so the live site can't show a stale event. Past
+events stay in `data/events.json` as a record rather than being deleted.
+
+Each past event should end up with a `reportId` pointing at its entry in
+`data/reports.json`. `build.js` warns about any past event that doesn't have
+one yet — that warning is the to-do list of impact reports owed. Clear it by
+adding the report and setting `reportId` on the event.
 
 ### Adding an event
 
@@ -104,8 +113,9 @@ submissions should go.
 - Don't commit `.DS_Store` (it's gitignored; it used to be tracked).
 - Don't edit `index.html` between the BUILD markers — it will be overwritten.
 
-## Known inconsistency
+## Contact address
 
-The contact section lists `ben@coolslashscary.ai`, but the corrected SF impact
-report (May 2026) points readers to `ben@stratovation.digital`. Confirm with
-Ben which is canonical before propagating either.
+The website always uses **`ben@coolslashscary.ai`** — that is the canonical
+address for anything on the site. Impact report PDFs may use either that or
+`ben@stratovation.digital` depending on the audience; don't "fix" a report to
+match the site.

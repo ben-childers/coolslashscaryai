@@ -6,11 +6,12 @@
     <title>Artist in Residence | Cool Slash Scary AI</title>
     <meta
       name="description"
-      content="Featuring digital artwork by Kam Clark, our Artist in Residence, exploring the intersection of AI and social impact."
+      content="Artwork by Kam Clark, our Artist in Residence, made for Cool/Scary AI convenings in Detroit and Toronto."
     />
-    <meta property="og:title" content="Kam Clark - Artist in Residence | Cool Slash Scary AI" />
-    <meta property="og:description" content="Featuring digital artwork by Kam Clark, exploring the intersection of AI and social impact." />
+    <meta property="og:title" content="Kam Clark — Artist in Residence | Cool Slash Scary AI" />
+    <meta property="og:description" content="Artwork by Kam Clark, made for Cool/Scary AI convenings in Detroit and Toronto." />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://coolslashscary.ai/assets/gallery/detroit-banner.webp" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -51,7 +52,7 @@
       }
 
       .air-header a:hover,
-      .air-header a:focus {
+      .air-header a:focus-visible {
         border-color: var(--teal);
       }
 
@@ -80,110 +81,13 @@
         background: var(--fog);
       }
 
-      .gallery-grid {
-        column-count: 3;
-        column-gap: 1.5rem;
-      }
-
-      .gallery-item {
-        border: 3px solid var(--navy);
-        overflow: hidden;
-        cursor: pointer;
-        margin-bottom: 1.5rem;
-        break-inside: avoid;
-      }
-
-      .gallery-item img {
-        width: 100%;
-        height: auto;
-        display: block;
-        transition: transform 0.3s ease;
-      }
-
-      .gallery-item:hover img {
-        transform: scale(1.02);
-      }
-
-      .lightbox {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        z-index: 1000;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem;
-        box-sizing: border-box;
-      }
-
-      .lightbox.active {
-        display: flex;
-      }
-
-      .lightbox img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-        border: 3px solid var(--white);
-      }
-
-      .lightbox-close {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        color: var(--white);
-        font-size: 2rem;
-        cursor: pointer;
-        background: none;
-        border: none;
-        font-weight: 700;
-        line-height: 1;
-        padding: 0.5rem;
-      }
-
-      .lightbox-close:hover {
-        color: var(--teal);
-      }
-
-      .air-actions {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 2rem;
-      }
-
-      .air-actions .button {
-        background: var(--navy);
-        color: var(--white);
-        border: 3px solid var(--navy);
-      }
-
-      .air-actions .button:hover,
-      .air-actions .button:focus {
-        background: var(--green);
-        border-color: var(--green);
-      }
-
-      .air-actions .button-secondary {
-        background: transparent;
-        color: var(--navy);
-      }
-
-      .air-actions .button-secondary:hover,
-      .air-actions .button-secondary:focus {
-        background: var(--navy);
-        color: var(--white);
-      }
+      /* --- Artist bio ------------------------------------------------- */
 
       .artist-bio {
         display: flex;
         gap: 2rem;
         align-items: flex-start;
-        margin-bottom: 3rem;
+        margin-bottom: 3.5rem;
         background: var(--white);
         border: 3px solid var(--navy);
         padding: 2rem;
@@ -218,8 +122,159 @@
         border-bottom: 2px solid transparent;
       }
 
-      .artist-social a:hover {
+      .artist-social a:hover,
+      .artist-social a:focus-visible {
         border-color: var(--teal);
+      }
+
+      /* --- Collections ------------------------------------------------ */
+
+      .collection + .collection {
+        margin-top: 3.5rem;
+      }
+
+      .collection-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--navy);
+        padding-bottom: 0.75rem;
+        border-bottom: 3px solid var(--navy);
+        margin-bottom: 1rem;
+      }
+
+      .collection-blurb {
+        max-width: 60ch;
+        color: var(--navy);
+        opacity: 0.8;
+        line-height: 1.6;
+        margin-bottom: 1.75rem;
+      }
+
+      .gallery-grid {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        column-count: 3;
+        column-gap: 1.5rem;
+      }
+
+      .gallery-item {
+        margin: 0 0 1.5rem;
+        break-inside: avoid;
+      }
+
+      /* A button, not a div — so it is reachable by keyboard and announced
+         as something you can activate. */
+      .gallery-open {
+        display: block;
+        width: 100%;
+        padding: 0;
+        border: 3px solid var(--navy);
+        background: var(--white);
+        cursor: zoom-in;
+        font: inherit;
+        color: inherit;
+        text-align: left;
+        overflow: hidden;
+      }
+
+      .gallery-open:focus-visible {
+        outline: 3px solid var(--teal);
+        outline-offset: 3px;
+      }
+
+      .gallery-open img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-open:hover img,
+      .gallery-open:focus-visible img {
+        transform: scale(1.02);
+      }
+
+      .gallery-caption {
+        display: block;
+        padding: 0.6rem 0.85rem;
+        border-top: 3px solid var(--navy);
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--navy);
+      }
+
+      /* --- Lightbox --------------------------------------------------- */
+
+      .lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.92);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        box-sizing: border-box;
+      }
+
+      .lightbox.active {
+        display: flex;
+      }
+
+      .lightbox img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border: 3px solid var(--white);
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        color: var(--white);
+        font-size: 2rem;
+        cursor: pointer;
+        background: none;
+        border: 3px solid transparent;
+        font-weight: 700;
+        line-height: 1;
+        padding: 0.25rem 0.6rem;
+      }
+
+      .lightbox-close:hover {
+        color: var(--teal);
+      }
+
+      .lightbox-close:focus-visible {
+        outline: none;
+        border-color: var(--teal);
+        color: var(--teal);
+      }
+
+      .air-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 3.5rem;
+      }
+
+      .air-actions .button {
+        background: var(--navy);
+        color: var(--white);
+        border: 3px solid var(--navy);
+      }
+
+      .air-actions .button:hover,
+      .air-actions .button:focus-visible {
+        background: var(--green);
+        border-color: var(--green);
       }
 
       @media (max-width: 900px) {
@@ -244,6 +299,17 @@
           height: 150px;
         }
       }
+
+      @media (prefers-reduced-motion: reduce) {
+        .gallery-open img {
+          transition: none;
+        }
+
+        .gallery-open:hover img,
+        .gallery-open:focus-visible img {
+          transform: none;
+        }
+      }
     </style>
   </head>
   <body class="air-page">
@@ -260,7 +326,8 @@
       <div class="container">
         <h1>Artist in Residence</h1>
         <p>
-          Digital artwork created during our artist residency program, exploring the intersection of AI and social impact.
+          Artwork made for our convenings — one commission per city, each one a
+          read on what that gathering was wrestling with.
         </p>
       </div>
     </section>
@@ -268,7 +335,13 @@
     <main class="air-content">
       <div class="container">
         <div class="artist-bio">
-          <img src="assets/kam-clark-headshot.png" alt="Kam Clark" class="artist-headshot" />
+          <img
+            src="assets/gallery/kam-clark-headshot.webp"
+            alt="Kam Clark"
+            class="artist-headshot"
+            width="180"
+            height="180"
+          />
           <div class="artist-info">
             <h2>Kam Clark</h2>
             <p>
@@ -280,20 +353,68 @@
           </div>
         </div>
 
-        <div class="gallery-grid">
-          <div class="gallery-item">
-            <img src="assets/kam-clark-banner.png" alt="Cool/Scary AI Detroit banner artwork by Kam Clark" />
-          </div>
-          <div class="gallery-item">
-            <img src="assets/kam-clark-square.png" alt="Cool/Scary AI Detroit square artwork by Kam Clark" />
-          </div>
-          <div class="gallery-item">
-            <img src="assets/kam-clark-deck1.png" alt="Cool/Scary AI Detroit deck artwork by Kam Clark" />
-          </div>
-          <div class="gallery-item">
-            <img src="assets/kam-clark-deck2.png" alt="Cool/Scary AI Detroit deck artwork by Kam Clark" />
-          </div>
-        </div>
+        <!-- BUILD:artwork start -->
+          <section class="collection" aria-labelledby="toronto-artwork">
+            <h2 class="collection-title" id="toronto-artwork">Toronto Artwork</h2>
+            <p class="collection-blurb">Created for Cool/Scary AI Toronto. Ochre brick and arched windows hold their ground under a sky that hasn't decided yet — the city we actually convene in, weather and all.</p>
+            <ul class="gallery-grid">
+              <li class="gallery-item">
+                <button type="button" class="gallery-open" data-full="assets/gallery/toronto-wide-full.webp" data-alt="Illustrated Toronto streetscape of ochre brick buildings with arched windows beneath a heavy blue-grey sky">
+                  <img src="assets/gallery/toronto-wide.webp" alt="Illustrated Toronto streetscape of ochre brick buildings with arched windows beneath a heavy blue-grey sky" width="1100" height="619" loading="lazy" decoding="async" />
+                  <span class="gallery-caption">Banner</span>
+                </button>
+              </li>
+              <li class="gallery-item">
+                <button type="button" class="gallery-open" data-full="assets/gallery/toronto-square-full.webp" data-alt="Square crop of the ochre brick facade and its arcade of arched windows against a dark blue sky">
+                  <img src="assets/gallery/toronto-square.webp" alt="Square crop of the ochre brick facade and its arcade of arched windows against a dark blue sky" width="1080" height="1080" loading="lazy" decoding="async" />
+                  <span class="gallery-caption">Square</span>
+                </button>
+              </li>
+              <li class="gallery-item">
+                <button type="button" class="gallery-open" data-full="assets/gallery/toronto-vertical-full.webp" data-alt="Tall crop of the illustrated streetscape, the building low in the frame under a wide expanse of blue-grey sky">
+                  <img src="assets/gallery/toronto-vertical.webp" alt="Tall crop of the illustrated streetscape, the building low in the frame under a wide expanse of blue-grey sky" width="619" height="1100" loading="lazy" decoding="async" />
+                  <span class="gallery-caption">Vertical</span>
+                </button>
+              </li>
+              <li class="gallery-item">
+                <button type="button" class="gallery-open" data-full="assets/gallery/toronto-field-full.webp" data-alt="Wide hazy blue sky with the ochre rooftops pushed to the lower right, leaving open space for a title">
+                  <img src="assets/gallery/toronto-field.webp" alt="Wide hazy blue sky with the ochre rooftops pushed to the lower right, leaving open space for a title" width="1100" height="619" loading="lazy" decoding="async" />
+                  <span class="gallery-caption">Title field</span>
+                </button>
+              </li>
+            </ul>
+          </section>
+          <section class="collection" aria-labelledby="detroit-artwork">
+            <h2 class="collection-title" id="detroit-artwork">Detroit Artwork</h2>
+            <p class="collection-blurb">Created for Cool/Scary AI Detroit. A classical figure cradles a small sun, the light mapped outward in surveyor's dashes — old hands holding a new fire, and someone already measuring it.</p>
+            <ul class="gallery-grid">
+              <li class="gallery-item">
+                <button type="button" class="gallery-open" data-full="assets/gallery/detroit-banner-full.webp" data-alt="Teal and green gradient illustration of a reclining classical figure holding a glowing gold orb, with dashed gold lines radiating outward">
+                  <img src="assets/gallery/detroit-banner.webp" alt="Teal and green gradient illustration of a reclining classical figure holding a glowing gold orb, with dashed gold lines radiating outward" width="1100" height="550" loading="lazy" decoding="async" />
+                  <span class="gallery-caption">Banner</span>
+                </button>
+              </li>
+              <li class="gallery-item">
+                <button type="button" class="gallery-open" data-full="assets/gallery/detroit-square-full.webp" data-alt="Square crop of the classical figure and glowing orb, dashed gold arcs fanning across a green-to-teal field">
+                  <img src="assets/gallery/detroit-square.webp" alt="Square crop of the classical figure and glowing orb, dashed gold arcs fanning across a green-to-teal field" width="1100" height="1100" loading="lazy" decoding="async" />
+                  <span class="gallery-caption">Square</span>
+                </button>
+              </li>
+              <li class="gallery-item">
+                <button type="button" class="gallery-open" data-full="assets/gallery/detroit-portrait-full.webp" data-alt="Close crop on the figure's head and outstretched arm, the gold orb at the upper right">
+                  <img src="assets/gallery/detroit-portrait.webp" alt="Close crop on the figure's head and outstretched arm, the gold orb at the upper right" width="1100" height="619" loading="lazy" decoding="async" />
+                  <span class="gallery-caption">Detail</span>
+                </button>
+              </li>
+              <li class="gallery-item">
+                <button type="button" class="gallery-open" data-full="assets/gallery/detroit-field-full.webp" data-alt="Wide green-to-teal gradient with the figure and orb small in the lower right corner, leaving open space for a title">
+                  <img src="assets/gallery/detroit-field.webp" alt="Wide green-to-teal gradient with the figure and orb small in the lower right corner, leaving open space for a title" width="1100" height="619" loading="lazy" decoding="async" />
+                  <span class="gallery-caption">Title field</span>
+                </button>
+              </li>
+            </ul>
+          </section>
+        <!-- BUILD:artwork end -->
 
         <div class="air-actions">
           <a href="index.html#contact" class="button">Get in touch</a>
@@ -308,35 +429,52 @@
       </div>
     </footer>
 
-    <div class="lightbox" id="lightbox">
-      <button class="lightbox-close" aria-label="Close">&times;</button>
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork viewer">
+      <button class="lightbox-close" type="button" aria-label="Close artwork viewer">&times;</button>
       <img src="" alt="" id="lightbox-img" />
     </div>
 
     <script>
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      const galleryItems = document.querySelectorAll('.gallery-item img');
+      (function () {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = lightbox.querySelector('.lightbox-close');
+        let lastFocused = null;
 
-      galleryItems.forEach(img => {
-        img.addEventListener('click', () => {
-          lightboxImg.src = img.src;
-          lightboxImg.alt = img.alt;
+        function open(button) {
+          lastFocused = button;
+          lightboxImg.src = button.dataset.full;
+          lightboxImg.alt = button.dataset.alt || '';
           lightbox.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          closeBtn.focus();
+        }
+
+        function close() {
+          lightbox.classList.remove('active');
+          document.body.style.overflow = '';
+          lightboxImg.src = '';
+          if (lastFocused) lastFocused.focus();
+        }
+
+        document.querySelectorAll('.gallery-open').forEach((button) => {
+          button.addEventListener('click', () => open(button));
         });
-      });
 
-      lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox || e.target.classList.contains('lightbox-close')) {
-          lightbox.classList.remove('active');
-        }
-      });
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox || e.target === closeBtn) close();
+        });
 
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          lightbox.classList.remove('active');
-        }
-      });
+        document.addEventListener('keydown', (e) => {
+          if (!lightbox.classList.contains('active')) return;
+          if (e.key === 'Escape') close();
+          // Only one focusable thing in here — keep Tab on it.
+          if (e.key === 'Tab') {
+            e.preventDefault();
+            closeBtn.focus();
+          }
+        });
+      })();
     </script>
   </body>
 </html>

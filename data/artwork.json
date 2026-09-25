@@ -1,0 +1,78 @@
+[
+  {
+    "collection": "Toronto Artwork",
+    "blurb": "Created for Cool/Scary AI Toronto. Ochre brick and arched windows hold their ground under a sky that hasn't decided yet — the city we actually convene in, weather and all.",
+    "pieces": [
+      {
+        "slug": "toronto-wide",
+        "caption": "Banner",
+        "alt": "Illustrated Toronto streetscape of ochre brick buildings with arched windows beneath a heavy blue-grey sky",
+        "w": 1100,
+        "h": 619,
+        "source": "assets/CoolScary_AI_Toronto_Slide-1.png"
+      },
+      {
+        "slug": "toronto-square",
+        "caption": "Square",
+        "alt": "Square crop of the ochre brick facade and its arcade of arched windows against a dark blue sky",
+        "w": 1080,
+        "h": 1080,
+        "source": "assets/CoolScary_AI_Toronto_Square.png"
+      },
+      {
+        "slug": "toronto-vertical",
+        "caption": "Vertical",
+        "alt": "Tall crop of the illustrated streetscape, the building low in the frame under a wide expanse of blue-grey sky",
+        "w": 619,
+        "h": 1100,
+        "source": "assets/CoolScary_AI_Toronto_Vertical.png"
+      },
+      {
+        "slug": "toronto-field",
+        "caption": "Title field",
+        "alt": "Wide hazy blue sky with the ochre rooftops pushed to the lower right, leaving open space for a title",
+        "w": 1100,
+        "h": 619,
+        "source": "assets/CoolScary_AI_Toronto_Slide-Haze.png"
+      }
+    ]
+  },
+  {
+    "collection": "Detroit Artwork",
+    "blurb": "Created for Cool/Scary AI Detroit. A classical figure cradles a small sun, the light mapped outward in surveyor's dashes — old hands holding a new fire, and someone already measuring it.",
+    "pieces": [
+      {
+        "slug": "detroit-banner",
+        "caption": "Banner",
+        "alt": "Teal and green gradient illustration of a reclining classical figure holding a glowing gold orb, with dashed gold lines radiating outward",
+        "w": 1100,
+        "h": 550,
+        "source": "assets/kam-clark-banner.png"
+      },
+      {
+        "slug": "detroit-square",
+        "caption": "Square",
+        "alt": "Square crop of the classical figure and glowing orb, dashed gold arcs fanning across a green-to-teal field",
+        "w": 1100,
+        "h": 1100,
+        "source": "assets/kam-clark-square.png"
+      },
+      {
+        "slug": "detroit-portrait",
+        "caption": "Detail",
+        "alt": "Close crop on the figure's head and outstretched arm, the gold orb at the upper right",
+        "w": 1100,
+        "h": 619,
+        "source": "assets/kam-clark-deck2.png"
+      },
+      {
+        "slug": "detroit-field",
+        "caption": "Title field",
+        "alt": "Wide green-to-teal gradient with the figure and orb small in the lower right corner, leaving open space for a title",
+        "w": 1100,
+        "h": 619,
+        "source": "assets/kam-clark-deck1.png"
+      }
+    ]
+  }
+]

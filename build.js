@@ -2,13 +2,17 @@
 /**
  * build.js — renders data/*.json into index.html.
  *
- * Why this exists: events and impact reports used to be hand-written HTML cards.
- * Now they live in data/events.json and data/reports.json, and this script writes
- * them into the marked regions of index.html. The committed HTML stays real,
+ * Why this exists: events, impact reports and the artwork gallery used to be
+ * hand-written HTML cards. Now they live in data/*.json and this script writes
+ * them into the marked regions of the pages. The committed HTML stays real,
  * crawlable markup — Netlify publishes the repo root with no build command.
  *
- * Usage:  node build.js          (rewrites index.html in place)
- *         node build.js --check  (exits 1 if index.html is stale — for CI)
+ *   data/events.json   -> index.html               BUILD:events
+ *   data/reports.json  -> index.html               BUILD:reports
+ *   data/artwork.json  -> artist-in-residence.html BUILD:artwork
+ *
+ * Usage:  node build.js          (rewrites the pages in place)
+ *         node build.js --check  (exits 1 if any page is stale — for CI)
  *
  * No dependencies. Node 18+.
  */
@@ -18,7 +22,10 @@ const path = require('path');
 
 const ROOT = __dirname;
 const TZ = 'America/New_York';
-const INDEX = path.join(ROOT, 'index.html');
+const PAGES = {
+  index: path.join(ROOT, 'index.html'),
+  artist: path.join(ROOT, 'artist-in-residence.html'),
+};
 
 const esc = (s) =>
   String(s)
@@ -87,6 +94,42 @@ ${tags}
     .join('\n');
 }
 
+/**
+ * How many pages a PDF declares. Reads /Count off the page tree — enough to
+ * catch the real failure mode here, which is exporting one artboard from a
+ * report canvas instead of all of them and shipping a one-page "report".
+ */
+function pdfPageCount(file) {
+  const raw = fs.readFileSync(file).toString('latin1');
+  const counts = [...raw.matchAll(/\/Count\s+(\d+)/g)].map((m) => Number(m[1]));
+  return counts.length ? Math.max(...counts) : null;
+}
+
+function renderArtwork(collections) {
+  return collections
+    .map((c) => {
+      const id = c.collection.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      const tiles = c.pieces
+        .map(
+          (p) => `              <li class="gallery-item">
+                <button type="button" class="gallery-open" data-full="assets/gallery/${esc(p.slug)}-full.webp" data-alt="${esc(p.alt)}">
+                  <img src="assets/gallery/${esc(p.slug)}.webp" alt="${esc(p.alt)}" width="${p.w}" height="${p.h}" loading="lazy" decoding="async" />
+                  <span class="gallery-caption">${esc(p.caption)}</span>
+                </button>
+              </li>`
+        )
+        .join('\n');
+      return `          <section class="collection" aria-labelledby="${esc(id)}">
+            <h2 class="collection-title" id="${esc(id)}">${esc(c.collection)}</h2>
+            <p class="collection-blurb">${esc(c.blurb)}</p>
+            <ul class="gallery-grid">
+${tiles}
+            </ul>
+          </section>`;
+    })
+    .join('\n');
+}
+
 function replaceRegion(html, name, body) {
   const re = new RegExp(
     `([ \\t]*<!-- BUILD:${name} start -->\\n)[\\s\\S]*?([ \\t]*<!-- BUILD:${name} end -->)`
@@ -101,6 +144,7 @@ function main() {
   const check = process.argv.includes('--check');
   const events = read('data/events.json');
   const reports = read('data/reports.json');
+  const artwork = read('data/artwork.json');
 
   const missing = reports.filter((r) => !fs.existsSync(path.join(ROOT, r.pdf)));
   if (missing.length) {
@@ -108,9 +152,46 @@ function main() {
     process.exit(1);
   }
 
-  const original = fs.readFileSync(INDEX, 'utf8');
-  let html = replaceRegion(original, 'events', renderEvents(events));
+  // A report whose PDF has the wrong number of pages is a bad export, not a
+  // broken link — it would sail past the existence check above and go live.
+  const truncated = reports
+    .filter((r) => r.pages)
+    .map((r) => ({ r, got: pdfPageCount(path.join(ROOT, r.pdf)) }))
+    .filter(({ r, got }) => got !== null && got !== r.pages);
+  if (truncated.length) {
+    console.error('ERROR: PDF page count does not match data/reports.json:');
+    truncated.forEach(({ r, got }) =>
+      console.error(`       ${r.pdf} — expected ${r.pages} pages, found ${got}`)
+    );
+    console.error('       Re-export from the report canvas with "All artboards (.pdf)".');
+    process.exit(1);
+  }
+
+  // Every gallery piece needs both derivatives. Regenerate with tools/images.sh.
+  const noImage = [];
+  artwork.forEach((c) =>
+    c.pieces.forEach((p) => {
+      [`assets/gallery/${p.slug}.webp`, `assets/gallery/${p.slug}-full.webp`].forEach((f) => {
+        if (!fs.existsSync(path.join(ROOT, f))) noImage.push(f);
+      });
+    })
+  );
+  if (noImage.length) {
+    console.error('ERROR: missing gallery images -> ' + noImage.join(', '));
+    console.error('       Run: bash tools/images.sh');
+    process.exit(1);
+  }
+
+  const originals = {};
+  const built = {};
+  for (const [key, file] of Object.entries(PAGES)) {
+    originals[key] = fs.readFileSync(file, 'utf8');
+  }
+
+  let html = replaceRegion(originals.index, 'events', renderEvents(events));
   html = replaceRegion(html, 'reports', renderReports(reports));
+  built.index = html;
+  built.artist = replaceRegion(originals.artist, 'artwork', renderArtwork(artwork));
 
   // Past events stay in events.json as a record but stop rendering. Any past
   // event without a reportId is one we owe an impact report.
@@ -125,20 +206,27 @@ function main() {
     );
   }
 
+  const stale = Object.keys(PAGES).filter((k) => built[k] !== originals[k]);
+
   if (check) {
-    if (html !== original) {
-      console.error('index.html is out of date. Run: node build.js');
+    if (stale.length) {
+      console.error(
+        `Out of date: ${stale.map((k) => path.basename(PAGES[k])).join(', ')}. Run: node build.js`
+      );
       process.exit(1);
     }
-    console.log('index.html is up to date.');
+    console.log('All pages are up to date.');
     return;
   }
 
-  fs.writeFileSync(INDEX, html);
+  for (const key of stale) fs.writeFileSync(PAGES[key], built[key]);
+
   const shown = events.filter((e) => !isPast(e)).length;
+  const pieces = artwork.reduce((n, c) => n + c.pieces.length, 0);
   console.log(
-    `Built index.html — ${shown} upcoming event(s) of ${events.length} on file, ` +
-      `${reports.length} impact report(s).`
+    `Built — ${shown} upcoming event(s) of ${events.length} on file, ` +
+      `${reports.length} impact report(s), ` +
+      `${pieces} artwork piece(s) in ${artwork.length} collection(s).`
   );
 }
 

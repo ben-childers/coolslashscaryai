@@ -5,8 +5,15 @@
     "year": "2025",
     "title": "Cool AI Sh*t — Baltimore Summit 2025",
     "summary": "The inaugural summit convened nonprofit leaders, technologists, creatives, and advocates to explore context-aware AI, ethical responsibility, and authenticity amid automation. The community surfaced productive tensions and a shared commitment to shaping AI’s future together.",
-    "tags": ["Human-centered AI", "Ethical governance", "Contextual implementation", "Authenticity vs. efficiency", "Community-led futures"],
-    "pdf": "assets/baltimore-impact-report-2025.pdf"
+    "tags": [
+      "Human-centered AI",
+      "Ethical governance",
+      "Contextual implementation",
+      "Authenticity vs. efficiency",
+      "Community-led futures"
+    ],
+    "pdf": "assets/baltimore-impact-report-2025.pdf",
+    "pages": 8
   },
   {
     "id": "denver-2025",
@@ -14,8 +21,15 @@
     "year": "2025",
     "title": "Cool/Scary AI Impact — Denver Summit 2025",
     "summary": "The Denver summit focused on moving nonprofits from AI anxiety to intentional action. Speakers explored human judgment, ethical guardrails, and inclusive design while embracing contradictions like innovation versus regulation.",
-    "tags": ["AI literacy", "Human–AI collaboration", "Ethics & empathy", "Democratizing access", "Policy and civic impact"],
-    "pdf": "assets/denver-impact-report-2025.pdf"
+    "tags": [
+      "AI literacy",
+      "Human–AI collaboration",
+      "Ethics & empathy",
+      "Democratizing access",
+      "Policy and civic impact"
+    ],
+    "pdf": "assets/denver-impact-report-2025.pdf",
+    "pages": 8
   },
   {
     "id": "brooklyn-2025",
@@ -23,17 +37,31 @@
     "year": "2025",
     "title": "Cool/Scary AI Sh!t — Brooklyn Summit 2025",
     "summary": "The Brooklyn summit centered on culture-first AI adoption for mission-driven organizations. Sessions highlighted practical automation, data foundations, and adaptive ethics as prerequisites for responsible scale.",
-    "tags": ["Culture-first adoption", "Governance & guardrails", "Practical automation", "Data foundations", "Trust over hype"],
-    "pdf": "assets/brooklyn-impact-report-2025.pdf"
+    "tags": [
+      "Culture-first adoption",
+      "Governance & guardrails",
+      "Practical automation",
+      "Data foundations",
+      "Trust over hype"
+    ],
+    "pdf": "assets/brooklyn-impact-report-2025.pdf",
+    "pages": 8
   },
   {
-    "id": "dc-mt-pleasant-2026",
+    "id": "dc-neighborhood-editions-2026",
     "location": "Washington, DC",
     "year": "2026",
-    "title": "Cool/Scary AI Neighborhood Editions — Mt. Pleasant",
-    "summary": "A neighborhood-scale gathering that brought local residents and community leaders together to explore how AI is shaping daily life, civic participation, and access to opportunity in Mt. Pleasant.",
-    "tags": ["Neighborhood voices", "Community access", "Civic AI", "Local impact", "Grassroots governance"],
-    "pdf": "assets/CoolScary_AI_DC_Mt_Pleasant_Impact_Report.pdf"
+    "title": "Cool/Scary AI × DC Public Library — Neighborhood Editions",
+    "summary": "Three neighborhood conversations with DC Public Library at Mt. Pleasant, Woodridge, and Anacostia. Residents weren't afraid of AI itself — they worried about what we'll stop doing for ourselves: judgment, craft, kids' resilience, and the connections we make when we need each other.",
+    "tags": [
+      "Human judgment",
+      "Creative consent",
+      "Cost of efficiency",
+      "Future of education",
+      "Library as civic infrastructure"
+    ],
+    "pdf": "assets/CoolScary_AI_DC_Neighborhood_Editions_2026.pdf",
+    "pages": 6
   },
   {
     "id": "san-francisco-2025",
@@ -41,8 +69,15 @@
     "year": "2025",
     "title": "Cool/Scary AI Impact Forum — San Francisco",
     "summary": "The San Francisco forum convened technologists, funders, and community advocates to examine AI's transformative potential alongside its risks, with a focus on accountability, equity, and who gets to shape these systems.",
-    "tags": ["Tech accountability", "Equity & access", "Funder perspectives", "Systemic risk", "Community voices"],
-    "pdf": "assets/CoolScary_AI_Impact_Forum_SF_2025_Report.pdf"
+    "tags": [
+      "Tech accountability",
+      "Equity & access",
+      "Funder perspectives",
+      "Systemic risk",
+      "Community voices"
+    ],
+    "pdf": "assets/CoolScary_AI_Impact_Forum_SF_2025_Report.pdf",
+    "pages": 8
   },
   {
     "id": "dc-2025",
@@ -50,7 +85,14 @@
     "year": "2025",
     "title": "Cool/Scary AI Sh!t — Washington, DC",
     "summary": "A frank, community-led conversation in the nation's capital about the realities of AI adoption — the promising, the problematic, and the unresolved. Participants explored policy implications, organizational readiness, and the human stakes of getting it wrong.",
-    "tags": ["Policy & power", "Organizational readiness", "Human stakes", "Honest dialogue", "Civic accountability"],
-    "pdf": "assets/CoolScary_AI_Shit_DC_Impact_Report_2025.pdf"
+    "tags": [
+      "Policy & power",
+      "Organizational readiness",
+      "Human stakes",
+      "Honest dialogue",
+      "Civic accountability"
+    ],
+    "pdf": "assets/CoolScary_AI_Shit_DC_Impact_Report_2025.pdf",
+    "pages": 8
   }
 ]

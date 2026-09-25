@@ -20,7 +20,7 @@
     "location": "Woodridge Neighborhood Library, Washington, DC",
     "registerUrl": "https://dclibrary.libnet.info/event/15715629",
     "cta": "Register",
-    "reportId": null
+    "reportId": "dc-neighborhood-editions-2026"
   },
   {
     "id": "dcpl-anacostia-2026-04-29",
@@ -32,6 +32,18 @@
     "location": "Anacostia Neighborhood Library, Washington, DC",
     "registerUrl": "https://dclibrary.libnet.info/event/15715770",
     "cta": "Register",
-    "reportId": null
+    "reportId": "dc-neighborhood-editions-2026"
+  },
+  {
+    "id": "dcpl-mt-pleasant-2026-02-24",
+    "source": "DC Public Library",
+    "accent": "library-green",
+    "title": "Cool/Scary AI Neighborhood Editions — Mt. Pleasant",
+    "start": "2026-02-24T18:00:00-05:00",
+    "end": "2026-02-24T20:00:00-05:00",
+    "location": "Mt. Pleasant Neighborhood Library, Washington, DC",
+    "registerUrl": null,
+    "cta": "Register",
+    "reportId": "dc-neighborhood-editions-2026"
   }
 ]

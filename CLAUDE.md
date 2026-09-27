@@ -164,6 +164,19 @@ submissions should go.
 
 ## Conventions
 
+- Corner accents on cards run one nine-step cycle, shared by impact report
+  cards and event cards through a single `:is(.card, .event-card)` rule:
+
+  ```
+  green  teal   gold
+  gold   green  teal
+  teal   gold   green
+  ```
+
+  It's a Latin square, so every column of the three-column grid gets all
+  three colors and no color sits next to or above itself. Don't give the two
+  grids separate rules again — they had separate ones, drifted, and the
+  fourth report onward ended up with no corner at all.
 - Vanilla JS only, inline at the bottom of the page. No dependencies.
 - Keep `styles.css` as the single stylesheet.
 - Explicit `width`/`height` on `<img>` to avoid layout shift.

@@ -99,13 +99,20 @@ circulation. The *series* name is new; the events are not renamed. Don't
   "source": "DC Public Library",
   "accent": "library-green",
   "title": "Event title",
+  "city": "Washington, DC",
   "start": "2026-03-25T17:00:00-04:00",
   "end": "2026-03-25T19:00:00-04:00",
-  "location": "Venue, City, ST",
+  "venue": "Woodridge Neighborhood Library",
+  "address": "1801 Hamlin St. NE, Washington, DC",
   "registerUrl": "https://...",
   "cta": "Register"
 }
 ```
+
+`venue` and `address` render as separate lines; `address` is optional and is
+simply left out when we don't have a street. `registerUrl` may be `null` for
+a past event that never had one — the button is then omitted rather than
+rendered as a dead link.
 
 `accent` maps to a CSS modifier `event-source--{accent}`; a new value needs a
 matching rule in `styles.css`. It only shows when a badge does. Times are ISO 8601 with offset; display
@@ -164,6 +171,13 @@ submissions should go.
 
 ## Conventions
 
+- **Card information: one fact per line.** Date, time, venue, street, series,
+  city, year — each gets its own row in a `<ul class="fact-lines">`. Never
+  join them with middots or commas. Stacked facts are scannable and they wrap
+  cleanly at phone width; a run-on line of separators does neither. This is
+  why `data/events.json` carries `city`, `venue` and `address` as separate
+  fields rather than one `location` string — the data has to be split before
+  the presentation can be.
 - Corner accents on cards run one nine-step cycle, shared by impact report
   cards and event cards through a single `:is(.card, .event-card)` rule:
 

@@ -41,17 +41,18 @@ const esc = (s) =>
 
 const read = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 
-function formatWhen(startISO, endISO) {
-  const start = new Date(startISO);
-  const date = start.toLocaleDateString('en-US', {
+function formatDate(startISO) {
+  return new Date(startISO).toLocaleDateString('en-US', {
     month: 'long', day: 'numeric', year: 'numeric', timeZone: TZ,
   });
-  const time = (d) =>
+}
+
+function formatTime(startISO, endISO) {
+  const t = (d) =>
     new Date(d).toLocaleTimeString('en-US', {
       hour: 'numeric', minute: '2-digit', hour12: true, timeZone: TZ,
     });
-  if (!endISO) return `${date} · ${time(startISO)}`;
-  return `${date} · ${time(startISO)} – ${time(endISO)}`;
+  return endISO ? `${t(startISO)} – ${t(endISO)}` : t(startISO);
 }
 
 function isPast(e, now = new Date()) {
@@ -86,11 +87,25 @@ function renderEventCard(e) {
     e.source && e.source !== 'Cool/Scary AI'
       ? `\n                <span class="event-source${accent}">${esc(e.source)}</span>`
       : '';
+  // One fact per line — date, time, venue, street each get their own row.
+  // Never join them with separators; see "Card information" in CLAUDE.md.
+  const lines = [
+    ['event-date', formatDate(e.start)],
+    ['event-time', formatTime(e.start, e.end)],
+    ['event-venue', e.venue],
+    ['event-address', e.address],
+  ]
+    .filter(([, v]) => v)
+    .map(([cls, v]) => `                  <li class="${cls}">${esc(v)}</li>`)
+    .join('\n');
+  const cta = e.registerUrl
+    ? `\n                <a href="${esc(e.registerUrl)}" target="_blank" rel="noopener" class="button event-button">${esc(e.cta || 'Register')}</a>`
+    : '';
   return `              <article class="event-card">${badge}
                 <h3>${esc(e.title)}</h3>
-                <p class="event-meta">${esc(formatWhen(e.start, e.end))}</p>
-                <p class="event-location">${esc(e.location)}</p>
-                <a href="${esc(e.registerUrl)}" target="_blank" rel="noopener" class="button event-button">${esc(e.cta || 'Register')}</a>
+                <ul class="fact-lines">
+${lines}
+                </ul>${cta}
               </article>`;
 }
 
@@ -121,7 +136,11 @@ function renderReports(reports) {
         .map((t) => `                <li>${esc(t)}</li>`)
         .join('\n');
       return `            <article class="card">
-              <p class="card-meta">${esc(SERIES_ONE[r.series] || 'Event')} · ${esc(r.location)} · ${esc(r.year)}</p>
+              <ul class="fact-lines card-meta">
+                <li>${esc(SERIES_ONE[r.series] || 'Event')}</li>
+                <li>${esc(r.location)}</li>
+                <li>${esc(r.year)}</li>
+              </ul>
               <h3>${esc(r.title)}</h3>
               <p>${esc(r.summary)}</p>
               <ul class="tag-list">
@@ -238,7 +257,7 @@ function main() {
   if (owed.length) {
     console.warn(`\n  --  ${owed.length} past event(s) awaiting an impact report:`);
     owed.forEach((e) =>
-      console.warn(`      - ${e.title} (${e.location}) on ${formatWhen(e.start, e.end)}`)
+      console.warn(`      - ${e.title} (${e.city}) on ${formatDate(e.start)}`)
     );
     console.warn(
       '      Add the report to data/reports.json, then set "reportId" on the event.\n'

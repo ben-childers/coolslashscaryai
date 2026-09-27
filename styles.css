@@ -364,12 +364,59 @@ h3 {
   position: relative;
 }
 
+/* ---------------------------------------------------------------------------
+   Card information — one fact per line
+
+   Date, time, venue, street, series, city, year: each gets its own row. Never
+   joined with middots or commas. Stacked facts are scannable; a run-on line
+   of separators is not, and it wraps badly at phone width.
+   ------------------------------------------------------------------------- */
+.fact-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.fact-lines li {
+  line-height: 1.45;
+}
+
+/* The first fact carries the weight; the rest recede. */
+.event-card .fact-lines .event-date {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.event-card .fact-lines .event-time {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.event-card .fact-lines .event-venue {
+  margin-top: 0.4rem;
+  color: var(--navy-70);
+}
+
+.event-card .fact-lines .event-address {
+  color: var(--navy-60);
+  font-size: 0.92rem;
+}
+
 .card-meta {
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--navy-60);
+}
+
+/* The series is the card's label — give it the ink the location doesn't need */
+.card-meta li:first-child {
+  color: var(--navy);
+  font-weight: 700;
 }
 
 /* Tags - Bauhaus: simple rectangles */

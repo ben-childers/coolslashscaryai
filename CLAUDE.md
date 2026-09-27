@@ -244,6 +244,17 @@ submissions should go.
   why `data/events.json` carries `city`, `venue` and `address` as separate
   fields rather than one `location` string — the data has to be split before
   the presentation can be.
+- The small square beside every `h2` cycles **green, teal, gold** down the
+  page in document order, green first. `h2::before` is green as the base so a
+  heading in a new context joins the cycle instead of defaulting to a colour
+  that means nothing; `main > section:nth-of-type(3n+2)` and `(3n+3)` take it
+  from there. The artist page continues the same cycle from its bio heading.
+- `max-width` cannot hold a single unbreakable word. The slab's city name
+  overflowed its box and ran under the gold square on a phone even though the
+  max-width said otherwise. Where a block must not collide with an absolutely
+  positioned element, make them clear each other **vertically** — the phone
+  square ends at 56px and the city starts at 78px, so they can never meet
+  whatever the word is.
 - Corner accents on cards run one nine-step cycle, shared by impact report
   cards and event cards through a single `:is(.card, .event-card)` rule:
 

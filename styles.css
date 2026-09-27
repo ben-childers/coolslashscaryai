@@ -161,7 +161,10 @@ h2 {
   display: inline-block;
 }
 
-/* Bauhaus geometric accent on h2 */
+/* Bauhaus geometric accent on h2. The colour cycles green, teal, gold down
+   the page, in document order, starting with the first heading. Green is the
+   base so a heading in a new context joins the cycle rather than falling back
+   to a colour that means nothing. */
 h2::before {
   content: "";
   position: absolute;
@@ -170,6 +173,14 @@ h2::before {
   transform: translateY(-50%);
   width: 12px;
   height: 12px;
+  background: var(--green);
+}
+
+main > section:nth-of-type(3n + 2) h2::before {
+  background: var(--teal);
+}
+
+main > section:nth-of-type(3n + 3) h2::before {
   background: var(--gold);
 }
 
@@ -1294,8 +1305,21 @@ input:focus-visible {
   .band-cta { text-align: center; }
 
   .slab { padding: 2.5rem 1.5rem; }
-  .slab::before { width: 88px; height: 88px; }
-  .slab-city { max-width: calc(100% - 100px); }
+
+  /* The square has to end ABOVE the city, not merely beside it. max-width on
+     .slab-city cannot hold a single unbreakable word — "TORONTO" is 272px
+     wide and simply overflowed its 179px box, straight under an 88px square
+     that reached down to y=88 while the city started at y=78. At 56px the
+     square clears the city by 22px, so the city can take the full width and
+     the two can never meet. */
+  .slab::before { width: 56px; height: 56px; }
+
+  .slab-city {
+    max-width: 100%;
+    font-size: clamp(2.75rem, 11vw, 4rem);
+    overflow-wrap: break-word; /* last resort for a very long city name */
+  }
+
   .slab-cta { display: block; text-align: center; }
 
   .card-grid {

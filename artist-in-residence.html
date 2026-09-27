@@ -133,6 +133,30 @@
         margin-top: 3.5rem;
       }
 
+      /* Continue the page's green / teal / gold cycle: the bio heading is the
+         first, then each collection in turn. */
+      .artist-info h2::before {
+        background: var(--green);
+      }
+
+      .collection:nth-of-type(3n + 1) .collection-title::before {
+        background: var(--teal);
+      }
+
+      .collection:nth-of-type(3n + 2) .collection-title::before {
+        background: var(--gold);
+      }
+
+      .collection:nth-of-type(3n + 3) .collection-title::before {
+        background: var(--green);
+      }
+
+      /* the square hangs 1.5rem left of the heading, so reserve that space
+         rather than letting it dangle into the page margin */
+      .collection {
+        padding-left: 1.5rem;
+      }
+
       .collection-title {
         font-size: 0.85rem;
         font-weight: 700;

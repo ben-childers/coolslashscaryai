@@ -63,11 +63,39 @@ Each past event should end up with a `reportId` pointing at its entry in
 one yet — that warning is the to-do list of impact reports owed. Clear it by
 adding the report and setting `reportId` on the event.
 
+### The two series
+
+Events and impact reports both carry a **`series`**:
+
+- **`field-day`** — *Field Days*. We host. A full day, one city. This is the
+  flagship format.
+- **`community`** — *Community Events*. A partner hosts, on their own ground
+  and at their own scale — a library branch, an office, a neighbourhood.
+- **`neighborhood-edition`** — *Neighborhood Editions*, on reports only. The
+  DC Public Library run, which was a series of its own.
+
+`series` is explicit in the data, never inferred from `source` — a Field Day
+can be co-branded with a venue without ceasing to be ours. `build.js` renders
+one `.series-block` per series into `BUILD:events`, each with its own heading,
+blurb and empty state, and puts the singular label on report cards
+("Field Day · Baltimore, Maryland · 2025").
+
+A card shows its `source` badge only when the host is someone other than
+Cool/Scary AI — under a "Field Days" heading a "Cool/Scary AI" badge on every
+card is noise.
+
+**The back catalogue keeps its original names.** Baltimore is still
+"Cool AI Sh*t — Baltimore Summit 2025" on its card and its PDF cover, because
+that is what it was called, what speakers list, and what is already in
+circulation. The *series* name is new; the events are not renamed. Don't
+"tidy" the old titles — the Field Days heading does that work.
+
 ### Adding an event
 
 ```json
 {
   "id": "city-venue-YYYY-MM-DD",
+  "series": "community",
   "source": "DC Public Library",
   "accent": "library-green",
   "title": "Event title",
@@ -80,14 +108,14 @@ adding the report and setting `reportId` on the event.
 ```
 
 `accent` maps to a CSS modifier `event-source--{accent}`; a new value needs a
-matching rule in `styles.css`. Times are ISO 8601 with offset; display
+matching rule in `styles.css`. It only shows when a badge does. Times are ISO 8601 with offset; display
 formatting is America/New_York.
 
 ### Adding an impact report
 
 Put the PDF in `assets/`, then add an entry to `data/reports.json` with
-`location`, `year`, `title`, `summary`, `tags` (5 is the established count),
-`pdf`, and `pages`.
+`series`, `location`, `year`, `title`, `summary`, `tags` (5 is the established
+count), `pdf`, and `pages`.
 
 `build.js` fails the build if a referenced PDF is missing, or if its actual
 page count doesn't match `pages`. That second check exists because a report

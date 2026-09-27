@@ -437,6 +437,41 @@ h3 {
 }
 
 /* Event card grid - responsive layout for 4-10 cards */
+/* Series blocks — Field Days vs Community Events. Matches the collection
+   headings on the artist page so the two pages read as one system. */
+.series-block {
+  /* match .section-header's indent so the heading, its rule and the cards
+     all share one left edge */
+  padding-left: 1.5rem;
+}
+
+.series-block + .series-block {
+  margin-top: 3.5rem;
+}
+
+.series-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--navy);
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid var(--navy);
+  margin-bottom: 1rem;
+}
+
+.series-blurb {
+  max-width: 60ch;
+  color: var(--navy-70);
+  margin-bottom: 1.75rem;
+}
+
+.series-empty {
+  color: var(--navy-70);
+  padding: 1.5rem;
+  border: 2px dashed var(--navy-15);
+}
+
 .event-card-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -882,7 +917,8 @@ input:focus-visible {
     height: 8px;
   }
 
-  .section-header {
+  .section-header,
+  .series-block {
     padding-left: 1rem;
   }
 

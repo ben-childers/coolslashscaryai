@@ -1,8 +1,9 @@
 [
   {
     "id": "toronto-csi-2026-10-19",
+    "series": "field-day",
     "source": "Cool/Scary AI",
-    "accent": "community",
+    "accent": "brand",
     "title": "Cool/Scary AI Toronto 2026",
     "start": "2026-10-19T13:00:00-04:00",
     "end": "2026-10-19T16:30:00-04:00",
@@ -12,6 +13,7 @@
   },
   {
     "id": "dcpl-woodridge-2026-03-25",
+    "series": "community",
     "source": "DC Public Library",
     "accent": "library-green",
     "title": "Hey DC: we want to hear your thoughts on AI!",
@@ -24,6 +26,7 @@
   },
   {
     "id": "dcpl-anacostia-2026-04-29",
+    "series": "community",
     "source": "DC Public Library",
     "accent": "library-gold",
     "title": "Hey DC: we want to hear your thoughts on AI!",
@@ -36,6 +39,7 @@
   },
   {
     "id": "dcpl-mt-pleasant-2026-02-24",
+    "series": "community",
     "source": "DC Public Library",
     "accent": "library-green",
     "title": "Cool/Scary AI Neighborhood Editions — Mt. Pleasant",

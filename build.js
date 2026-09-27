@@ -11,6 +11,11 @@
  *   data/reports.json  -> index.html               BUILD:reports
  *   data/artwork.json  -> artist-in-residence.html BUILD:artwork
  *
+ * Events and reports both carry a "series". Field Days are the ones we host;
+ * Community Events are hosted by partners on their own ground. The series is
+ * an explicit field, not inferred from "source" — a Field Day can be
+ * co-branded with a venue without stopping being ours.
+ *
  * Usage:  node build.js          (rewrites the pages in place)
  *         node build.js --check  (exits 1 if any page is stale — for CI)
  *
@@ -53,24 +58,58 @@ function isPast(e, now = new Date()) {
   return new Date(e.end || e.start) < now;
 }
 
+const SERIES = {
+  'field-day': {
+    label: 'Field Days',
+    blurb: 'A full day, one city, the whole community in a room. We host these.',
+    empty: 'The next Field Day will be announced soon.',
+  },
+  community: {
+    label: 'Community Events',
+    blurb: 'Hosted by partners on their own ground, at their own scale — libraries, offices, neighborhoods.',
+    empty: 'Nothing on the community calendar right now — <a class="text-link" href="#host">host one</a>.',
+  },
+};
+
+// Card labels for a single instance of a series, used on report cards.
+const SERIES_ONE = {
+  'field-day': 'Field Day',
+  'neighborhood-edition': 'Neighborhood Edition',
+  community: 'Community Event',
+};
+
+function renderEventCard(e) {
+  const accent = e.accent ? ` event-source--${esc(e.accent)}` : '';
+  // Under a "Field Days" heading, a "Cool/Scary AI" badge on every card is
+  // noise. Show the badge only when someone else is named as the host.
+  const badge =
+    e.source && e.source !== 'Cool/Scary AI'
+      ? `\n                <span class="event-source${accent}">${esc(e.source)}</span>`
+      : '';
+  return `              <article class="event-card">${badge}
+                <h3>${esc(e.title)}</h3>
+                <p class="event-meta">${esc(formatWhen(e.start, e.end))}</p>
+                <p class="event-location">${esc(e.location)}</p>
+                <a href="${esc(e.registerUrl)}" target="_blank" rel="noopener" class="button event-button">${esc(e.cta || 'Register')}</a>
+              </article>`;
+}
+
 function renderEvents(events) {
   const upcoming = events
     .filter((e) => !isPast(e))
     .sort((a, b) => new Date(a.start) - new Date(b.start));
-  if (!upcoming.length) {
-    return '            <p class="quiet">No events on the calendar right now — ' +
-           '<a class="text-link" href="#host">host one</a>.</p>';
-  }
-  return upcoming
-    .map((e) => {
-      const accent = e.accent ? ` event-source--${esc(e.accent)}` : '';
-      return `            <article class="event-card">
-              <span class="event-source${accent}">${esc(e.source)}</span>
-              <h3>${esc(e.title)}</h3>
-              <p class="event-meta">${esc(formatWhen(e.start, e.end))}</p>
-              <p class="event-location">${esc(e.location)}</p>
-              <a href="${esc(e.registerUrl)}" target="_blank" rel="noopener" class="button event-button">${esc(e.cta || 'Register')}</a>
-            </article>`;
+
+  return Object.entries(SERIES)
+    .map(([key, s]) => {
+      const mine = upcoming.filter((e) => e.series === key);
+      const body = mine.length
+        ? `            <div class="event-card-grid">\n${mine.map(renderEventCard).join('\n')}\n            </div>`
+        : `            <p class="series-empty">${s.empty}</p>`;
+      return `          <section class="series-block" aria-labelledby="series-${key}">
+            <h3 class="series-title" id="series-${key}">${esc(s.label)}</h3>
+            <p class="series-blurb">${esc(s.blurb)}</p>
+${body}
+          </section>`;
     })
     .join('\n');
 }
@@ -82,7 +121,7 @@ function renderReports(reports) {
         .map((t) => `                <li>${esc(t)}</li>`)
         .join('\n');
       return `            <article class="card">
-              <p class="card-meta">${esc(r.location)} · ${esc(r.year)}</p>
+              <p class="card-meta">${esc(SERIES_ONE[r.series] || 'Event')} · ${esc(r.location)} · ${esc(r.year)}</p>
               <h3>${esc(r.title)}</h3>
               <p>${esc(r.summary)}</p>
               <ul class="tag-list">

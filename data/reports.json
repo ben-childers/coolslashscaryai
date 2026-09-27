@@ -1,6 +1,7 @@
 [
   {
     "id": "baltimore-2025",
+    "series": "field-day",
     "location": "Baltimore, Maryland",
     "year": "2025",
     "title": "Cool AI Sh*t — Baltimore Summit 2025",
@@ -17,6 +18,7 @@
   },
   {
     "id": "denver-2025",
+    "series": "field-day",
     "location": "Denver, Colorado",
     "year": "2025",
     "title": "Cool/Scary AI Impact — Denver Summit 2025",
@@ -33,6 +35,7 @@
   },
   {
     "id": "brooklyn-2025",
+    "series": "field-day",
     "location": "Brooklyn, New York",
     "year": "2025",
     "title": "Cool/Scary AI Sh!t — Brooklyn Summit 2025",
@@ -49,6 +52,7 @@
   },
   {
     "id": "dc-neighborhood-editions-2026",
+    "series": "neighborhood-edition",
     "location": "Washington, DC",
     "year": "2026",
     "title": "Cool/Scary AI × DC Public Library — Neighborhood Editions",
@@ -65,6 +69,7 @@
   },
   {
     "id": "san-francisco-2025",
+    "series": "field-day",
     "location": "San Francisco, California",
     "year": "2025",
     "title": "Cool/Scary AI Impact Forum — San Francisco",
@@ -81,6 +86,7 @@
   },
   {
     "id": "dc-2025",
+    "series": "field-day",
     "location": "Washington, DC",
     "year": "2025",
     "title": "Cool/Scary AI Sh!t — Washington, DC",

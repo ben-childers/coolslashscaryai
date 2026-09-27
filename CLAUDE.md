@@ -237,6 +237,17 @@ submissions should go.
   jumping at a number someone picked once. The masthead band is the worked
   example: given its own 780px breakpoint it rendered *taller* than when
   left to flex-wrap on its own.
+- **Section gutters and rhythm live on `.section`, not on `.section-header`.**
+  Every `h2` carries a gold square hanging 1.5rem to its left (`h2::before`),
+  so every section has to reserve that gutter — `.section > .container` does
+  it. Likewise `.section h2 + p` and `.section p + p` supply the vertical
+  rhythm. Only half the sections use a `.section-header` wrapper; when the
+  gutter and spacing lived there, About, Host an event and Contact sat 24px
+  left of the rest with their gold squares hanging into the page margin, no
+  gap under the heading, and paragraphs touching. Don't move these back onto
+  the wrapper.
+- Remember the global `* { margin: 0 }` reset: a heading or paragraph has no
+  spacing at all unless a rule gives it some.
 - Test mobile after any header or grid change — it has regressed before.
 - **Never put `overflow-x: hidden` on `html`/`body`.** It makes the page a
   scroll container and silently breaks `position: sticky` — the header was

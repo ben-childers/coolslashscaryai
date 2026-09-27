@@ -355,10 +355,33 @@ h3 {
   background: linear-gradient(90deg, var(--green) 33%, var(--teal) 33% 66%, var(--gold) 66%);
 }
 
+/* Every h2 carries a gold square hanging 1.5rem to its left (h2::before), so
+   every section has to reserve that much gutter. Reserving it on the section
+   container rather than on .section-header means it is there whether or not a
+   section uses that wrapper — About, Host an event and Contact don't, and
+   used to sit a full 24px left of Events, Impact and Mission with their gold
+   squares hanging out into the page margin. */
+.section > .container {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 .section-header {
   max-width: 720px;
   margin-bottom: 3rem;
-  padding-left: 1.5rem;
+}
+
+/* The global `* { margin: 0 }` reset means a heading or paragraph has no
+   spacing unless something gives it some. .section-header supplies it for the
+   sections that use that wrapper; About, Host an event and Contact don't, so
+   their body copy sat flush against the heading and their paragraphs ran
+   together with no gap at all. Give the rhythm to the section instead. */
+.section h2 + p {
+  margin-top: 0.75rem;
+}
+
+.section p + p {
+  margin-top: 1rem;
 }
 
 .section-header p {
@@ -654,9 +677,8 @@ h3 {
 /* Series blocks — Field Days vs Community Events. Matches the collection
    headings on the artist page so the two pages read as one system. */
 .series-block {
-  /* match .section-header's indent so the heading, its rule and the cards
-     all share one left edge */
-  padding-left: 1.5rem;
+  /* the gutter now lives on the section container */
+  padding-left: 0;
 }
 
 .series-block + .series-block {
@@ -1175,11 +1197,6 @@ input:focus-visible {
   .section > .container {
     padding-left: 1rem;
     padding-right: 1rem;
-  }
-
-  .section-header,
-  .series-block {
-    padding-left: 0;
   }
 
   /* Stacked field and button — a full-width tap target beats a cramped row */

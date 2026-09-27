@@ -364,8 +364,12 @@ h3 {
   position: relative;
 }
 
-/* Colored corner accent */
-.card:nth-child(1)::before {
+/* Colored corner accent. Every card gets one; the colour cycles in sixes so
+   that in a three-column grid no column stacks the same colour twice. This
+   used to be hard-coded to nth-child(1..3), written when there were three
+   reports — so every card after the third had no corner at all. Keep it
+   cycling: the grid grows. */
+.card::before {
   content: "";
   position: absolute;
   top: 0;
@@ -375,23 +379,13 @@ h3 {
   background: var(--green);
 }
 
-.card:nth-child(2)::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
+.card:nth-child(6n + 2)::before,
+.card:nth-child(6n + 6)::before {
   background: var(--teal);
 }
 
-.card:nth-child(3)::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
+.card:nth-child(6n + 3)::before,
+.card:nth-child(6n + 4)::before {
   background: var(--gold);
 }
 

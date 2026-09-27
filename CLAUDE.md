@@ -196,6 +196,38 @@ honestly rather than resolving them prematurely.
 Event titles in the wild are irreverent ("Cool AI Sh*t", "Cool/Scary AI Sh!t")
 — keep that as-is; it's the brand, not a typo.
 
+## Colour as ink vs colour as fill
+
+`--teal` (#00a7b7) is a **fill**. As text it is 2.91:1 on white and 2.65:1 on
+fog — both fail WCAG AA, which wants 4.5:1. Use **`--teal-ink`** (#007480,
+same hue) for anything a reader reads or for a focus ring: 5.51:1 on white,
+5.01:1 on fog.
+
+The same trap runs the other way on fills: white on teal is 2.91:1, so a teal
+badge takes navy ink (6.09:1). Checked combinations that pass:
+
+| ink   | ground | ratio  |
+| ----- | ------ | ------ |
+| white | green  | 5.32:1 |
+| navy  | teal   | 6.09:1 |
+| navy  | gold   | 11.5:1 |
+| navy  | white  | 17.7:1 |
+
+Don't eyeball this — compute it. Two of the three "obvious" pairings fail.
+
+## Dates and times
+
+Event `start`/`end` carry **each venue's own UTC offset**, and the wall-clock
+time in the string is the local time where the event happens. `build.js` reads
+the digits straight out of the string and never converts. It used to run
+through `toLocaleString` with a hardcoded `America/New_York`, which silently
+rewrote every event outside Eastern — a Seattle event at `17:00:00-07:00`
+displayed as 8:00 PM. Nothing caught it because every event so far has been in
+Toronto or DC. Don't reintroduce a timezone conversion for display.
+
+`isPast()` is different and correctly compares real `Date` instants; the
+offsets make that work.
+
 ## Forms
 
 The host-interest and newsletter forms are Netlify Forms (the bare `netlify`

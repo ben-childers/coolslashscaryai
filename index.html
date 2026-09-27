@@ -338,7 +338,8 @@
             <h3>Stay in the loop</h3>
             <p>We share updates on events, impact summaries, and working groups.</p>
             <form class="signup-form" name="newsletter" netlify>
-              <input type="email" name="email" placeholder="you@example.com" required />
+              <label class="sr-only" for="newsletter-email">Email address</label>
+              <input id="newsletter-email" type="email" name="email" placeholder="you@example.com" required />
               <button type="submit" class="button">Subscribe</button>
             </form>
           </div>

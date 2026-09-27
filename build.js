@@ -26,7 +26,6 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = __dirname;
-const TZ = 'America/New_York';
 const PAGES = {
   index: path.join(ROOT, 'index.html'),
   artist: path.join(ROOT, 'artist-in-residence.html'),
@@ -41,18 +40,46 @@ const esc = (s) =>
 
 const read = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 
+const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+/**
+ * Dates and times are read straight out of the ISO string, NOT converted.
+ *
+ * Each event's `start`/`end` carries its own venue's UTC offset, so the
+ * wall-clock time written in the string already IS the local time where the
+ * event happens. This used to run through toLocaleString with a hardcoded
+ * America/New_York, which silently rewrote every event outside Eastern: a
+ * Seattle event at "17:00:00-07:00" displayed as 8:00 PM. Nobody noticed
+ * because every event so far has been in Toronto or DC.
+ *
+ * isPast() still compares real Date instants — that is a different question
+ * and the offsets make it correct.
+ */
+const ISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/;
+
+function parts(iso) {
+  const m = String(iso).match(ISO);
+  if (!m) throw new Error(`Unparseable date "${iso}" — expected YYYY-MM-DDTHH:MM±HH:MM`);
+  return { y: +m[1], mo: +m[2], d: +m[3], h: +m[4], mi: +m[5] };
+}
+
 function formatDate(startISO) {
-  return new Date(startISO).toLocaleDateString('en-US', {
-    month: 'long', day: 'numeric', year: 'numeric', timeZone: TZ,
-  });
+  const p = parts(startISO);
+  return `${MONTHS[p.mo - 1]} ${p.d}, ${p.y}`;
+}
+
+function clock({ h, mi }) {
+  const suffix = h < 12 ? 'AM' : 'PM';
+  const hour = h % 12 === 0 ? 12 : h % 12;
+  return `${hour}:${String(mi).padStart(2, '0')} ${suffix}`;
 }
 
 function formatTime(startISO, endISO) {
-  const t = (d) =>
-    new Date(d).toLocaleTimeString('en-US', {
-      hour: 'numeric', minute: '2-digit', hour12: true, timeZone: TZ,
-    });
-  return endISO ? `${t(startISO)} – ${t(endISO)}` : t(startISO);
+  const a = clock(parts(startISO));
+  return endISO ? `${a} – ${clock(parts(endISO))}` : a;
 }
 
 function isPast(e, now = new Date()) {

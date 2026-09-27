@@ -215,8 +215,15 @@ submissions should go.
 - Keep `styles.css` as the single stylesheet.
 - Explicit `width`/`height` on `<img>` to avoid layout shift.
 - External links: `target="_blank" rel="noopener"`.
-- Mobile-first; the nav collapses to a hamburger under the breakpoint. Test
-  mobile after any header or grid change — it has regressed before.
+- **Two breakpoints, and only two.** `900px` is tablet (multi-column grids
+  collapse, the event grid goes 3 → 2); `720px` is phone (nav becomes a
+  hamburger, everything goes single column). Don't add a third. Anything
+  needing to narrow between them should do it intrinsically — `clamp()`,
+  `flex-wrap`, `grid auto-fit` — which adapts continuously rather than
+  jumping at a number someone picked once. The masthead band is the worked
+  example: given its own 780px breakpoint it rendered *taller* than when
+  left to flex-wrap on its own.
+- Test mobile after any header or grid change — it has regressed before.
 - Anything clickable is a real `<button>` or `<a>`, never a `div` with a click
   handler. The gallery tiles used to be divs and were unreachable by keyboard.
 - Images below the fold get `loading="lazy"`.

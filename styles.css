@@ -1,3 +1,10 @@
+/* Breakpoints — only two, and they are these.
+     900px  tablet: multi-column grids collapse, the event grid goes 3 -> 2
+     720px  phone:  nav becomes a hamburger, everything goes single column
+   Do not invent a third. Anything that needs to narrow between them should
+   do it intrinsically — clamp(), flex-wrap, grid auto-fit — which adapts
+   continuously instead of jumping at a number someone picked once. */
+
 :root {
   /* Brand colors */
   --green: #1f7a4d;
@@ -533,31 +540,6 @@ h3 {
 /* a slab and any remaining cards below it */
 .slab + .event-card-grid {
   margin-top: 2rem;
-}
-
-@media (max-width: 780px) {
-  .band .container {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-    padding: 1.4rem 0;
-  }
-
-  .band-main {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.6rem;
-  }
-
-  .band-eyebrow { align-self: flex-start; }
-  .band-cta { text-align: center; }
-}
-
-@media (max-width: 620px) {
-  .slab { padding: 2.5rem 1.5rem; }
-  .slab::before { width: 72px; height: 72px; }
-  .slab-city { max-width: calc(100% - 84px); }
-  .slab-cta { display: block; text-align: center; }
 }
 
 /* ---------------------------------------------------------------------------
@@ -1166,6 +1148,31 @@ input:focus-visible {
   .series-block {
     padding-left: 1rem;
   }
+
+  /* Next Field Day treatments collapse at the same width the nav does.
+     Above this the band's own flex-wrap handles narrowing on its own —
+     it does not need a breakpoint of its own, and giving it one made it
+     taller than letting it wrap. */
+  .band .container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1.4rem 0;
+  }
+
+  .band-main {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .band-eyebrow { align-self: flex-start; }
+  .band-cta { text-align: center; }
+
+  .slab { padding: 2.5rem 1.5rem; }
+  .slab::before { width: 88px; height: 88px; }
+  .slab-city { max-width: calc(100% - 100px); }
+  .slab-cta { display: block; text-align: center; }
 
   .card-grid {
     grid-template-columns: 1fr;

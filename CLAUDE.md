@@ -90,6 +90,26 @@ that is what it was called, what speakers list, and what is already in
 circulation. The *series* name is new; the events are not renamed. Don't
 "tidy" the old titles — the Field Days heading does that work.
 
+### The next Field Day gets two treatments
+
+The soonest upcoming `field-day` event is rendered twice, from the same data:
+
+- **The masthead band** (`BUILD:band`, between `</header>` and `<main>`) — a
+  gold full-bleed band every visitor meets before scrolling.
+- **The cover slab** (inside `BUILD:events`) — a navy block with the gold
+  square, echoing the impact report covers. It is the headline of the Field
+  Days section; any *other* upcoming Field Days render as ordinary cards
+  beneath it.
+
+Neither needs a flag in the data — `nextFieldDay()` picks whichever is
+soonest, so nothing has to be remembered when an event is added or passes.
+With no upcoming Field Day, the band renders as nothing and the Field Days
+block falls back to its empty state.
+
+The two are deliberately independent: delete either the band region or the
+slab branch and the other still works. Showing the same event twice above the
+fold is a decision, not an accident — if it ever reads as nagging, drop one.
+
 ### Adding an event
 
 ```json

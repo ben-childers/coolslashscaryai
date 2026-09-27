@@ -7,7 +7,7 @@
  * them into the marked regions of the pages. The committed HTML stays real,
  * crawlable markup — Netlify publishes the repo root with no build command.
  *
- *   data/events.json   -> index.html               BUILD:events
+ *   data/events.json   -> index.html               BUILD:band, BUILD:events
  *   data/reports.json  -> index.html               BUILD:reports
  *   data/artwork.json  -> artist-in-residence.html BUILD:artwork
  *
@@ -79,6 +79,74 @@ const SERIES_ONE = {
   community: 'Community Event',
 };
 
+// The soonest upcoming Field Day. It is the one that gets the masthead band
+// and the slab; any others fall back to ordinary cards. Nothing to flag in the
+// data — being next is what makes an event the headline.
+function nextFieldDay(events, now = new Date()) {
+  return (
+    events
+      .filter((e) => e.series === 'field-day' && !isPast(e, now))
+      .sort((a, b) => new Date(a.start) - new Date(b.start))[0] || null
+  );
+}
+
+// One fact per line. `parts` is [className, value]; empty values drop out.
+function factLines(parts, indent) {
+  const pad = ' '.repeat(indent);
+  return parts
+    .filter(([, v]) => v)
+    .map(([cls, v]) => `${pad}<li${cls ? ` class="${cls}"` : ''}>${esc(v)}</li>`)
+    .join('\n');
+}
+
+function renderBand(e) {
+  if (!e) return '';
+  const lines = factLines(
+    [
+      ['band-date', formatDate(e.start)],
+      ['band-venue', e.venue],
+      ['band-address', e.address],
+    ],
+    12
+  );
+  const cta = e.registerUrl
+    ? `\n          <a class="band-cta" href="${esc(e.registerUrl)}" target="_blank" rel="noopener">${esc(e.cta || 'Register')}</a>`
+    : '';
+  return `    <aside class="band" aria-label="Next Field Day">
+      <div class="container">
+        <div class="band-main">
+          <span class="band-eyebrow">Next Field Day</span>
+          <span class="band-city">${esc(e.city)}</span>
+          <ul class="fact-lines band-facts">
+${lines}
+          </ul>
+        </div>${cta}
+      </div>
+    </aside>`;
+}
+
+function renderSlab(e) {
+  const lines = factLines(
+    [
+      ['slab-date', formatDate(e.start)],
+      ['slab-time', formatTime(e.start, e.end)],
+      ['slab-venue', e.venue],
+      ['slab-address', e.address],
+    ],
+    16
+  );
+  const cta = e.registerUrl
+    ? `\n              <a class="slab-cta" href="${esc(e.registerUrl)}" target="_blank" rel="noopener">${esc(e.cta || 'Register')}</a>`
+    : '';
+  return `            <article class="slab">
+              <span class="slab-eyebrow">Next Field Day</span>
+              <h3 class="slab-city">${esc(e.city)}</h3>
+              <ul class="fact-lines slab-facts">
+${lines}
+              </ul>${cta}
+            </article>`;
+}
+
 function renderEventCard(e) {
   const accent = e.accent ? ` event-source--${esc(e.accent)}` : '';
   // Under a "Field Days" heading, a "Cool/Scary AI" badge on every card is
@@ -116,10 +184,20 @@ function renderEvents(events) {
 
   return Object.entries(SERIES)
     .map(([key, s]) => {
-      const mine = upcoming.filter((e) => e.series === key);
-      const body = mine.length
+      let mine = upcoming.filter((e) => e.series === key);
+      let lead = '';
+      if (key === 'field-day' && mine.length) {
+        // The next Field Day is the headline, not a card in a row of three.
+        lead = renderSlab(mine[0]) + '\n';
+        mine = mine.slice(1);
+      }
+      const grid = mine.length
         ? `            <div class="event-card-grid">\n${mine.map(renderEventCard).join('\n')}\n            </div>`
-        : `            <p class="series-empty">${s.empty}</p>`;
+        : '';
+      const body =
+        lead || grid
+          ? (lead + grid).replace(/\n$/, '')
+          : `            <p class="series-empty">${s.empty}</p>`;
       return `          <section class="series-block" aria-labelledby="series-${key}">
             <h3 class="series-title" id="series-${key}">${esc(s.label)}</h3>
             <p class="series-blurb">${esc(s.blurb)}</p>
@@ -248,6 +326,7 @@ function main() {
 
   let html = replaceRegion(originals.index, 'events', renderEvents(events));
   html = replaceRegion(html, 'reports', renderReports(reports));
+  html = replaceRegion(html, 'band', renderBand(nextFieldDay(events)));
   built.index = html;
   built.artist = replaceRegion(originals.artist, 'artwork', renderArtwork(artwork));
 

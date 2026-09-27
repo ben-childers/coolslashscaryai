@@ -1,4 +1,4 @@
-# Cool Slash Scary AI — website
+# Cool/Scary AI — website
 
 Marketing and events site for Cool/Scary AI, a decentralized event platform
 where mission-driven communities examine AI's impact. Run by Ben Childers,
@@ -171,6 +171,20 @@ looks blank as a gallery tile; that's the artwork, not a broken image.
 The originals stay in `assets/` as the archive and nothing on the site links
 to them: the page serves only the generated WebP, which took the gallery from
 ~47 MB to ~3 MB. Never point an `<img>` at an original PNG.
+
+## The name
+
+The organisation is **Cool/Scary AI**. With the slash, always.
+
+"Cool Slash Scary AI" is not a spelling of it — the slash is only ever spelled
+out in the domain, `coolslashscary.ai`, because a URL cannot contain one. The
+site had the spelled-out form in 17 places (titles, meta, alt text, body copy,
+footers); they are all fixed. Don't reintroduce it.
+
+- Body copy, headings, footers, `alt` text, `<title>`, Open Graph: `Cool/Scary AI`
+- Domain and email only: `coolslashscary.ai`, `ben@coolslashscary.ai`
+- Event titles in the wild keep their own irreverent forms — "Cool AI Sh*t",
+  "Cool/Scary AI Sh!t". Those are event names, not the org name.
 
 ## Voice
 

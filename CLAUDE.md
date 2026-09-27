@@ -238,6 +238,23 @@ submissions should go.
   example: given its own 780px breakpoint it rendered *taller* than when
   left to flex-wrap on its own.
 - Test mobile after any header or grid change — it has regressed before.
+- **Never put `overflow-x: hidden` on `html`/`body`.** It makes the page a
+  scroll container and silently breaks `position: sticky` — the header was
+  declared sticky for months and never stuck. Use `overflow-x: clip`, which
+  contains overflow without creating a scroll container, and fix whatever
+  actually overflows at its source. A flex item that will not shrink is the
+  usual culprit; it needs `min-width: 0`.
+- The sticky bar holds only the mark and the nav. The tagline lives in
+  `.masthead` below it and scrolls away, so the bar stays under 100px on a
+  phone.
+- The nine-step corner cycle is a Latin square **for three columns**. In one
+  column, read straight down, it puts positions 3 and 4 — both gold — next to
+  each other, so the phone layout overrides it with a plain three-step cycle.
+- On a phone the impact report cards become blocks of their cycle colour
+  carrying the top-line facts, title and download; the summary and tags are
+  hidden. Ink follows the ground — white on green, navy on teal and gold.
+  One ink across all three fails contrast on two of them (navy on green is
+  3.3:1, white on teal 2.9:1).
 - Anything clickable is a real `<button>` or `<a>`, never a `div` with a click
   handler. The gallery tiles used to be divs and were unreachable by keyboard.
 - Images below the fold get `loading="lazy"`.

@@ -39,7 +39,12 @@
 
 html,
 body {
-  overflow-x: hidden;
+  /* `clip`, not `hidden`. `overflow-x: hidden` makes this a scroll container,
+     which silently breaks `position: sticky` on the header — the header was
+     sticky for months and never stuck. `clip` contains overflow without
+     creating a scroll container. Anything that actually overflows should be
+     fixed at the source; this is a safety net, not the fix. */
+  overflow-x: clip;
 }
 
 body {
@@ -75,14 +80,29 @@ img {
 
 .header-content {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   gap: 1.5rem;
-  padding: 1.5rem 0 1.75rem;
+  padding: 1rem 0;
+}
+
+/* The tagline used to live inside the header. It was pinned between the logo
+   and the hamburger on a phone, and it made the sticky bar tall enough to eat
+   the screen. It now sits below the bar and scrolls away; the bar that sticks
+   is just the mark and the nav. */
+.masthead {
+  background: var(--white);
+  border-bottom: 3px solid var(--navy);
+  padding: 1.75rem 0 2rem;
+}
+
+.masthead h1 {
+  max-width: 24ch;
 }
 
 .brand {
   display: flex;
-  gap: 1.25rem;
+  gap: 1rem;
   align-items: center;
 }
 
@@ -960,6 +980,9 @@ input:focus-visible {
 
 .signup-form input {
   flex: 1;
+  /* without this the input refuses to shrink below its default ~20ch and
+     pushes the whole contact card past the viewport */
+  min-width: 0;
   padding: 0.75rem 1rem;
   border: 2px solid var(--white);
   background: var(--white);
@@ -1144,9 +1167,80 @@ input:focus-visible {
     height: 8px;
   }
 
+  /* One gutter for everything in a section. About, Host an Event and Contact
+     had no .section-header wrapper, so their content sat at the bare
+     container edge while Events and Impact sat a rem further in — the three
+     of them looked cramped next to the rest. Indent the container instead,
+     and drop the per-element indents so nothing doubles up. */
+  .section > .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   .section-header,
   .series-block {
-    padding-left: 1rem;
+    padding-left: 0;
+  }
+
+  /* Stacked field and button — a full-width tap target beats a cramped row */
+  .signup-form {
+    flex-direction: column;
+  }
+
+  /* ---- Impact report cards collapse to a colour block ------------------
+     On a phone the six report cards were six tall walls of summary text.
+     They become a block of the card's own cycle colour carrying the
+     top-line facts, the title, and the download. The summary paragraph and
+     the tag list are hidden: the summary is a preview, and the report
+     itself is one tap away, so nothing that only exists here is lost.
+     Ink follows the ground — white on green, navy on teal and gold — since
+     one ink across all three would fail contrast on two of them. */
+  .card {
+    border: none;
+    padding: 1.25rem 1.25rem 1.5rem;
+    gap: 0.6rem;
+    background: var(--green);
+    color: var(--white);
+  }
+
+  /* the whole card is the colour now; the corner square would be invisible */
+  .card::before {
+    display: none;
+  }
+
+  /* The nine-step cycle is a Latin square for a THREE-column grid: read down
+     a single column it puts positions 3 and 4 — both gold — next to each
+     other. One column needs a three-step cycle instead. */
+  .card:nth-child(3n + 2) {
+    background: var(--teal);
+    color: var(--navy);
+  }
+
+  .card:nth-child(3n + 3) {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .card .card-meta,
+  .card .card-meta li:first-child,
+  .card h3 {
+    color: inherit;
+  }
+
+  .card h3 {
+    font-size: 1.05rem;
+  }
+
+  /* summary and tags stand down; the PDF carries the detail */
+  .card > p,
+  .card .tag-list {
+    display: none;
+  }
+
+  .card .text-link {
+    color: inherit;
+    border-bottom-color: currentColor;
+    margin-top: 0.25rem;
   }
 
   /* Next Field Day treatments collapse at the same width the nav does.
